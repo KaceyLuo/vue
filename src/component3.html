@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pops父亲向儿子传递数据</title>
+</head>
+<body>
+    在父组件里向子组件传递消息
+    <div id="app"  style="border:2px solid green">
+        <h5 style="text-align: center;">我是父组件</h5>
+        v-bind使用与否的区别
+        <!--没绑定时 不会对msg进行数据类型识别 msg里面是什么就直接传什么
+        绑定后 会自动识别msg数据类型 msg内还可以使用布尔值、对象等-->
+        <child-component msg="[1,2,3]"></child-component>
+        <child-component :msg="[1,2,3]"></child-component>
+
+        <hr>
+        使用v-bind进行数据的动态绑定，把input中的msg传递给子组件
+        <input type="text" v-model="parentmsg">     
+        <bind-component :msg="parentmsg"></bind-component>
+
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        //app相当于一个父组件 components相当于一个子组件
+        var app=new Vue({
+            el:"#app",
+            data:{
+                parentmsg:'今天是个好日子'
+            },
+            components:{
+                'child-component':{
+                    //与data的区别： props的内容来自于父级(app) 而data return的数据就是组件自己的数据 两种情况的作用域就是组件本身 可以在template、computed、methods中直接使用
+                    props:['msg'],
+                    template:'<div style="border:2px solid red">{{msg.length}}</div>'
+                },
+                'bind-component':{
+                    props:['msg'],
+                    template:'<div style="border:2px solid blue">{{msg}}</div>'
+                }
+            }
+        })
+    </script>
+</body>
+</html>

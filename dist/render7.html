@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>函数化组件的应用</title>
+</head>
+<body>
+    <div id="app">
+        <my-component value="haha">
+        
+        </my-component>
+
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        //this.text=====context.props.text
+        //this.$slots.default===context.children
+        Vue.component('my-component',{
+            //表示当前VUE实例无状态、无实例（无this）
+            functional:true,
+            render:function(createElement,context){
+                return createElement('button',{
+                    on:{
+                        click:function(){
+                            //context代表上下文对象
+                            console.log(context)
+                            console.log(context.parent)//表示父组件
+                            
+                            console.log(context.parent.msg)
+                            console.log(context.props.value)
+                            //console.log(this.value)//undefined 此时的this代表的是window对象
+
+                        }
+                    }
+                },'点击我学习context')
+            },
+            props:['value']
+            
+        })
+        var app= new Vue({
+            el:"#app",
+            data:{
+                msg:'我是父组件的内容'
+            },
+        })
+    </script>
+</body>
+</html>

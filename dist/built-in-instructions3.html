@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>条件指令</title>
+</head>
+<body>
+    v-for 当需要将一个数组遍历或枚举一个对象属性的时候循环显示<br>
+    遍历多个对象（数组）：<br>
+    <div id="app">
+        <ul>
+            <li v-for="VueMth in vueMethods">{{VueMth.name}}</li>
+        </ul>
+    带索引的写法： 括号的第一个变量代表items 第二个代表index
+    <ul>
+        <li v-for="(vueMth,index) in vueMethods">{{index}}....{{vueMth.name}}</li>
+    </ul>
+    <hr>
+    遍历一个对象的的多个属性：
+    <span v-for="value in habits">{{value}}</span>
+    <hr>
+    拿到value,key,index的写法 v-k-i ---外开：
+    <div v-for="(value,key,index) in habits">第{{index}}个爱好：---键是：{{key}},---{{value}}</div>
+    </div>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        var app=new Vue({
+            el:"#app",
+            data:{
+                //每个对象对应一个li
+                vueMethods:[
+                    {name:'多敲代码'},
+                    {name:'还是多敲代码'},
+                    {name:'多思考'}
+                
+                ],
+                habits:{
+                    habit1:'basketball ',
+                    habit2:'football ',
+                    habit3:'computer'
+                }
+                
+            }
+        })
+    </script>
+</body>
+</html>

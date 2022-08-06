@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div @click.self="divclick" style=" width:80px;height:80px;border:2px solid green;">
+            stop阻止单击事件向上冒泡
+            <button @click.stop="btnclick">按钮</button></div>
+            <hr>
+            prevent用法：
+            每次提交表单都会重载页面,使用prevent后不会再重载
+            <form action="" @submit.prevent="handle">
+                <button type="submit">提交表单</button>
+            </form>
+            <hr>
+            self只是作用在元素本身而非子元素的时候调用
+            <hr>
+            once:只执行一次<br>
+            <button @click.once="onceMethod">只执行一次</button>
+            <button @click="onceMethod">执行无限次</button>
+            <hr>
+            监听键盘事件<br>
+            <input @keyup.enter="submitMe">
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        var app=new Vue({
+            el:"#app",
+            data:{
+                
+            },
+            methods:{
+               divclick:function(){
+                alert('div被点击了')
+               },
+               btnclick:function(){
+                alert('button被点击了')
+               },
+               handle:function(){
+                alert('我不重载,页面不用刷新')
+               },
+               onceMethod:function(){
+                alert('我执行了')
+               },
+               submitMe:function(){
+                alert('你按下了enter键')
+               }
+                
+            }
+        })
+    </script>
+</body>
+</html>

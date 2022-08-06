@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+        <div id="app">
+            <my-aomponent ref="a"></my-aomponent>
+            <my-bomponent ref="b"></my-bomponent>
+            <hr>
+            <child-component ref="c"></child-component>{{msg}}
+            <hr>
+            <button @click="getChildData">我是父组件的按钮，我要拿到子组件的内容</button>{{fromchlid}}
+
+        </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        Vue.component('my-aomponent',{
+            template:'<div><button @click="handle">点击我向B组件传递数据</button></div>',
+            data:function(){
+                return{
+                    AAA:'我是来自A组建的内容',
+                    mg:'我是a中的mg'
+
+                }
+            },
+            methods:{
+                handle:function(){
+                    //根组件
+                    this.$root.bus.$emit('lala',this.AAA);
+                }
+            }
+        })
+        Vue.component('my-bomponent',{
+            template:'<div></div>',
+            created:function(){
+                //A组件在实例创建的时候就监听事件 ---lala事件
+                this.$root.bus.$on('lala',function(value){
+                    alert(value)
+                });
+            },
+            data:function(){
+                return {mg:'我是b中的mg'}
+            }
+        })
+        Vue.component('child-component',{
+            template:'<button @click="setFatherData">通过点击我修改父亲的数据</button>',
+            methods:{
+                setFatherData:function(){
+                    this.$parent.msg='数据已经修改了'
+                }
+            },
+            data:function(){
+                return {mg:'我是c中的mg'}
+            }
+            
+        })
+        var app=new Vue({
+            el:"#app",
+            data:{
+                //bus中介
+                bus:new Vue(),
+                msg:'数据还未修改',
+                fromchlid:'还未拿到'
+            },
+            methods:{
+                getChildData:function(){
+                    //用来拿子组件的内容----$refs
+                    this.fromchlid=this.$refs.a.mg;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

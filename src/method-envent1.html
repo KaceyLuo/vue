@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        点击次数： {{count}}
+        <!--如果方法中带有参数，不加括号 默认传原生事件对象event-->
+        <button @click="handle()">点我</button>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        var app=new Vue({
+            el:"#app",
+            data:{
+                count:0
+            },
+            methods:{
+                handle:function(count){
+                    count=count||1;
+                    this.count++
+                }
+            }
+        })
+    </script>
+</body>
+</html>

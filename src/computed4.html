@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="abc">
+        我的名字叫：{{fullName}}<br>
+        计算属性：{{now}}<br>
+        调用方法：{{thisTime}}
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        var app=new Vue({
+            el:'#abc',
+            data:{
+                firstName:'li',
+                lastName:'huai'
+
+            },
+            computed:{
+                // //默认用法getter
+                // fullName:function(){
+                //     return this.firstName+' '+this.lastName;
+                // }
+
+                fullName:{
+                    get:function(){
+                         return this.firstName+' '+this.lastName;
+
+                    },
+                    set:function(){
+                        var name=newValue.split(',');
+                        this.firstName=name[0];
+                        this.lastName=name[1];
+
+                    },
+                    //一个计算属性所依赖的数据发生变化时，他才会重新获取值
+                    now:function(){
+                        return Date.now();
+                    }
+                }
+            },
+            //方法只要调用方法 页面就会重新渲染
+            methods:{
+                thisTime:function(){
+                    return Date.now();
+                }
+            }
+        })
+    </script>
+</body>
+</html>

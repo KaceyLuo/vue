@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>条件渲染</title>
+</head>
+<body>
+    <div id="app">
+        v-if:后接等号，等号内容必须是布尔值<br>
+        <p v-if="6<3">{{apple}}</p>
+        <p v-else-if="9>5">{{peach}}</p>
+        <p v-else="">{{pear}}</p>
+        <hr>
+        v-if实例:<br>
+        点击按钮实现用户名输入框和密码输入框的切换
+        <div v-if="type==='name'">
+            用户名：<input type="text" placeholder="请输入用户名" key="name">   
+        </div>
+        <div v-else="">
+            密码:<input type="text" placeholder="请输入密码" key="psw">  
+        </div>
+        <button @click="toggleType">切换</button>
+        <hr>
+        v-if的弊端，Vue在渲染元素时，处于效率的考虑，会尽可能地复用已有的元素而非重新渲染，
+        只会渲染改变的元素 
+        解决方法：提供key值可以决定是否复用该元素(key是唯一的)
+        <hr>
+        v-show用法： 显现与否取决于他的布尔值
+        <p v-show="9>a">我被渲染了</p>
+        <hr>
+        v-if与v-show的比较：
+        v-if 实时渲染，页面显示就会渲染，不显示，就被移除
+        v-show 一次渲染 后面显示与否只是改变display的值
+
+
+    </div>    
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        var app=new Vue({
+            el:"#app",
+            data:{
+                apple:'apple',
+                pear:'pear',
+                peach:'peach',
+                type:'name',
+                a:3
+            },
+            methods:{
+                toggleType:function(){
+                    this.type=(this.type==='name' ? 'password' : 'name')
+                }
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单向数据流</title>
+</head>
+<body>
+    <div id="app" style="border:2px solid red ;">
+        <my-component msg="我是父组件传递的数据"></my-component>
+        <!--通过input中输入的数据直接改变div的宽度-->
+        <input type="text" v-model="width">
+        <width-component :width="width"></width-component>
+    </div>    
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        Vue.component('my-component',{
+            props:['msg'],
+            template:'<div>{{count}}</div>',
+            data:function(){
+                return{
+                    //props中的值可以通过this.xxx直接获取
+                    count:this.msg
+                }
+            }
+        }),
+        Vue.component('width-component',{
+            props:['width'],
+            template:'<div :style="style"></div>',
+            data:function(){
+                return{
+                    
+                }
+            },
+            computed:{
+            style:function(){
+                return{
+                    width:this.width+'px',
+                    background:'red',
+                    height:'300px'
+                }
+            }
+            }
+        })
+        var app=new Vue({
+            el:"#app",
+            data:{
+                width:0
+            },
+            components:{
+                
+            }
+        })
+        
+    </script>
+</body>
+</html>

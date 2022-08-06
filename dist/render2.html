@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>render函数详解</title>
+</head>
+<body>
+    <div id="app">
+        <child></child>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        //在render函数的方法中，参数必须是createElement
+        //render函数第一个参数必选,可以是String|Object|Function
+        //第二个参数可选，第二个参数只能是数据对象Object
+        //第三个参数也是可选的 String|Array 作为构建函数的子节点来使用 参数存的就是VNODE 返回的也是一个VNODE
+        Vue.component('child',{ 
+
+            render:function(createElement){
+                //createElement是一个方法
+                alert(typeof createElement)
+                //String---html标签
+                //return createElement('h1')
+
+                //Object---一个含有数据选项的对象
+                // return createElement({
+                //     template:'<div>lallala</div>'
+                // })
+
+                //Function---一个方法
+                // var domFun=function(){
+                //     return{
+                //         template:'<div>汗滴禾下土</div>'
+                //     }
+                // }
+                // return createElement(domFun());
+                
+                //有两个参数
+                // return createElement({
+                //     template:'<div>我有两个参数</div>'
+                // },{
+                //     class:{
+                //         foo:true,
+                //         baz:false
+                //     },
+                //     style:{
+                //         color:'red',
+                //         fontSize:'28px'
+                //     },
+                //     //正常的html特性
+                //     attrs:{
+                //         id:'foo',
+                //         src:'http://baidu.com'
+                //     },
+                //     //用来写原生的Dom属性
+                //     domProps:{
+                //         innerHTML:'<span style="color:blue;font-size=28px">我是原生属性</span>'
+                //     }
+                // })
+
+                //有三个参数
+                return createElement('div',[createElement('h1','我是h1标题')])
+    
+            }
+        })
+        var app=new Vue({
+            el:'#app',
+            data:{
+                
+            }
+        })
+    </script>
+
+</body>
+</html>

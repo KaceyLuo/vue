@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组更新</title>
+</head>
+<body>
+    <!--改变数组的一系列方法：
+    push()在末尾添加元素
+    pop()将数组的最后一个元素移除
+    shift()删除数组的第一个元素
+    unshift()在数组的第一个元素位置添加一个元素
+    splice()可以添加或者删除函数——返回删除的元素
+    第一个参数表示开始操作的位置
+    第二个参数表示要操作的长度
+    第三个为可选参数：
+    sort()排序
+    reverse()倒序-->
+
+
+    <div id="app">
+        <div v-for="study in arr">{{study}}</div>
+        <button @click="sortArr">排序</button>
+        <button @click="reverseArr">倒序</button><br>
+        改变数组的指定项和改变数组的长度vue检测不到 
+        <button @click="changeOne">改变数组的指定项</button>
+        <button @click="changeOne">改变数组的长度</button>
+        <hr>
+        返回字符串中含有oo的项
+        {{matchOO}}
+
+
+
+
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        var app=new Vue({
+            el:"#app",
+            data:{
+                arr:['book','pen','pencil']
+            },
+            methods:{
+                sortArr:function(){
+                    /*arr.sort([compareFunction])
+
+                    2.参数
+
+                    compareFunction可选
+
+                    用来指定按某种顺序进行排列的函数。如果省略，元素按照转换为的字符串的各个字符的Unicode位点进行排序。
+
+                a,b 两个将要被比较的元素。
+
+                    如果 compareFunction(a, b) 小于 0 ，那么 a 会被排列到 b 之前。
+
+                    如果 compareFunction(a, b) 等于 0 ， a 和 b 的相对位置不变。
+
+                    如果 compareFunction(a, b) 大于 0 ， b 会被排列到 a 之前。*/
+                    this.arr.sort(function(a,b){
+                        //从小到大排序
+                        return a.length-b.length;
+                    })
+                    
+                },
+                reverseArr:function(){
+                    this.arr.reverse();
+                },
+                changeOne:function(){
+                    this.arr[0]='car' 
+                },
+                changeLength:function(){
+                    this.arr[0].length=1
+                }
+
+            },
+            computed:{
+                matchOO:function(){
+                    return this.arr.filter(function(book){
+                        //match() 方法可在字符串内检索指定的值，或找到一个或多个正则表达式的匹配。
+                        return book.match(/oo/);
+                    })
+                }
+            }
+        })
+        //改变VUE的第一项 set方法改变数组中的某个元素
+        Vue.set(app.arr,1,"car")
+    </script>
+</body>
+</html>

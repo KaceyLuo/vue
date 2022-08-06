@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>编译的作用域</title>
+</head>
+<body>
+    <div id="app">
+        <my-component v-show="childshow">
+            <!-- message应该是绑定到父组件的数据
+            组件的作用域就是：父组件模板内容在父组件作用域内编译，子组件模板内容在子组件作用域内编译 -->    `
+        </my-component>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        Vue.component('my-component',{
+            template:'<div>我是一个组件</div>',
+            data:function(){
+                return{
+                    message:'我是子组件的内容',
+                    childshow:true
+                }
+            }
+        })
+        var app=new Vue({
+            el:"#app",
+            data:{
+                message:'我是父组件的内容',
+                childshow:true
+            }
+        })
+    </script>
+</body>
+</html>

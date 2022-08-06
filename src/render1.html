@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>render函数使用</title>
+</head>
+<body>
+    <div id="app">
+        <child :level="level">
+            我是箩箩箩
+            <!-- 在组件内的内容叫做插槽 -->
+        </child>
+        <!-- template下只允许有一个子节点 -->
+        <!-- <template id="hdom">
+            <div>
+            <h1 v-if="level==1">
+                <slot></slot>    
+            </h1>
+            <h1 v-if="level==2">
+                <slot></slot>    
+            </h1> 
+            <h1 v-if="level==3">
+                <slot></slot>    
+            </h1>
+        </div>   
+        </template>    -->
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        //使用vue组件定义
+        // Vue.component('child',{
+        //     props:['level'],
+        //     template:'#hdom'
+        // })
+        //使用rend函数定义
+        Vue.component('child',{
+            render:function(createElement)
+            {
+                return createElement('h'+this.level,this.$slots.default);
+            },
+            props:['level']
+        })
+        var app=new Vue({
+            el:'#app',
+            data:{
+                level:4
+            }
+        })
+    </script>
+
+</body>
+</html>

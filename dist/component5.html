@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据验证</title>
+</head>
+<body>
+    <div id="app">
+        <type-component :a="a" :b="b" :c="c" :d="d" :e="e" :f="f" :g="g"></type-component>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        //在html中 myMessage和mymessage是一致的，因此在组件中html使用my-message命名方式
+        //父组件给子组件传递数据必须用短横线，在template中必须使用驼峰命名方式，若为短横线的命名方式则会直接报错
+        //在组件data中用this.xxx引用时，只能是驼峰命名方式，若为短横线的命名方式则会报错
+        Vue.component('type-component',{
+            props:{
+                a:Number,
+                b:[String,Number],
+                //c必须是布尔类型 默认是true，type--required----default
+                c:{
+                    typeof:Boolean,
+                    default:true
+                },
+                d:{
+                    typeof:Number,
+                    required:true,//必须要传值 不然就会报错
+                    default:true
+                },
+                e:{
+                    typeof:Array,
+                    default:function(){
+                        return [888];
+                    }
+                },
+                f:{
+                    //自定义一个验证函数
+                    validator:function(value){
+                        return value>10;
+                    }
+                },
+                g:{
+                    typeof:Function
+                }
+
+            },
+            template:'<div>{{a}}---{{b}}---{{c}}---{{d}}---{{e[1]}}----{{f}}--{{g}}</div>',
+            data:function(){
+                return{
+                    
+                }
+            }
+        })
+        var app=new Vue({
+            el:"#app",
+            data:{
+                a:1,
+                b:'666',
+                c:true,
+                d:26534,
+                e:[1,2],
+                f:88,
+                g:console.log('我是函数')
+
+            },
+            components:{
+
+            }
+        })
+    </script>
+</body>
+</html>

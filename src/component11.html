@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态组件</title>
+</head>
+<body>
+    <div id="app">
+        <component :is="thisView"></component>
+        <button @click="handleView('A')">第一句</button>
+        <button @click="handleView('B')">第二句</button>    
+        <button @click="handleView('C')">第三句</button>    
+
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script>
+        //通过点击不同的按钮切换不同的视图
+        Vue.component('compA',{
+            template:'<div>我是视图A</div>'
+        })
+        Vue.component('compB',{
+            template:'<div>我是视图B</div>'
+        })
+        Vue.component('compC',{
+            template:'<div>我是视图C</div>'
+        })  
+        var app=new Vue({
+            el:"#app",
+            data:{
+                thisView:'compA'
+            },
+            methods:{
+                handleView:function(tag){
+                    this.thisView='comp'+tag;
+                }
+            }
+        })
+    </script>
+</body>
+</html>
